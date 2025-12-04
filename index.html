@@ -5,15 +5,24 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Clicker Game - Don&apos;t Panic&excl;</title>
-    <script src="./app.js"></script>
+    <script src="app.js" defer></script>
     <link rel="stylesheet" href="./styles.css">
 </head>
 
 <body>
     <main>
         <section>
-            <h1>Everything will be OK&excl;</h1>
+            <h1>Don't Panic&excl;</h1>
+            <!-- a clickable element, for example an image -->
+            <!-- <img id="panicBtn" src="./images/button.png" alt="panic button"> -->
+            <!-- button -->
+            <div id="panicBtn"></div>
+            <!-- total count -->
+            <p id="total"></p>
+            <!-- counts per second -->
+            <p id="cps"></p>
         </section>
+        <section id="shopContainer"></section>
     </main>
 </body>
 

@@ -8,3 +8,9 @@ body {
     background-color: azure;
     color:#02bdce;
 }
+
+#panicBtn {
+    background-color: red;
+    width: 100px;
+    height: 100px;
+}
