@@ -56,7 +56,7 @@ const rewardsElem = document.createElement("div");
 let totalCount = 0;
 let cps = 0;
 
-// get API here *******************************************************
+// get API DATA here *******************************************************
 async function getData() {
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
@@ -64,7 +64,7 @@ async function getData() {
     // console.log("JSON Data:", json);
 
     panicBtn.addEventListener("click", () => {
-        initGame(json[0].cost);
+        initGame(json[0].cost,null,null);
     });
 
     for(i = 0; i < json.length; i++) {
@@ -72,6 +72,9 @@ async function getData() {
         // TODO: CREATE 'REWARDS' HTML FROM JSON DATA
         // TODO: ADD EVENT LISTENERS
         // use json data as params for initGame ?? pass via event listeners ??
+        // element.addEventListener("click", () => {
+            // initGame(json[0].cost,id,increase);
+        // });
 
         // rewardsName = json[i].name;
         // rewardsElem.textContent = json[i].increase;
@@ -81,7 +84,7 @@ async function getData() {
 // json sample for reference    
 // cost: 1000
 // id: 3
-// increase: 10
+// increase: 10 // ms?
 // name: "Cookie Farm"
 
 
@@ -90,7 +93,7 @@ async function getData() {
 
 getData();
  
-function initGame(cost, id, ms) { // increment total count / set timer
+function initGame(cost, id, increase) { // increment total count / set timer
     console.log(cost);
     totalCount++;
     totalEl.innerText = `Panic Count = ${totalCount}`;
@@ -98,6 +101,7 @@ function initGame(cost, id, ms) { // increment total count / set timer
     if(totalCount === cost) { // pass param here from rewards event handlers??
         console.log("reached cost");
     // TODO: start auto-count timer // update auto-count timer milliseconds
+    // TODO: might need to put timer in different function 
         // let T = setInterval("", ms);
         // clearInterval(T);
     }
