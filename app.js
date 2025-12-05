@@ -34,74 +34,94 @@ console.log("is it working?");
 //add increase value to cps
 //save new values in local storage
 
+// json sample for reference    
+// cost: 1000
+// id: 3
+// increase: 10
+// name: "Cookie Farm"
+
 //============================================================================
 
 const panicBtn = document.getElementById("panicBtn");
 const cpsEl = document.getElementById("cps");
 const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
-
 let totalCount = 0;
 let cps = 0;
 
 // get API DATA here *******************************************************
-async function getData() {
+async function getData() { // CREATE ELEMENTS / HANDLERS
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
-    let rewardsName;
-    console.log("JSON Data:", json);
+    // console.log("JSON Data:", json);
     cpsEl.textContent = `panics per second = ${cps}`;
 
     for (i = 0; i < json.length; i++) {
         let rewardsElem = document.createElement("div");
-        // console.log(i);
-        // TODO: CREATE 'REWARDS' HTML FROM JSON DATA
-        // TODO: ADD EVENT LISTENERS  
-        rewardsName = json[i].name;
-        // console.log(rewardsName);
+        let inc = json[i].increase;
+        let cost = json[i].cost;
+        let rewardsName = json[i].name;
         rewardsElem.textContent = `${rewardsName}`;
+        rewardsElem.id = `upgrade${json[i].id}`;
+        // console.log(rewardsElem);
         shopContainer.appendChild(rewardsElem);
+        // console.log(json[i].increase);
         rewardsElem.addEventListener("click", () => {
-            initGame(json[i].cost, json[i].id, json[i].increase);
+            totalCount = totalCount - cost;
+            cps = cps + inc;
         });
-        // json sample for reference    
-        // cost: 1000
-        // id: 3
-        // increase: 10 // ms?
-        // name: "Cookie Farm"
     }
 
     panicBtn.addEventListener("click", () => {
-        initGame(json[0].cost, null, null);
+        totalCount++;
+        totalEl.innerText = `Panic Count = ${totalCount}`;
     });
 }
 
 getData();
 
 
+// ***************************************************
+// TODO: hide upgrade buttons until earned
+// const rewards = document.querySelectorAll("#upgrade1,#upgrade2,#upgrade3,#upgrade4,#upgrade5,#upgrade6,#upgrade7,#upgrade8,#upgrade9,#upgrade10");
+// console.log(rewards);
 
-function initGame(cost, id, increase) { // increment total count / set timer
-    // let T;
-    // console.log(cost);
-    totalCount++;
-    totalEl.innerText = `Panic Count = ${totalCount}`;
+// rewards.forEach(myFunction);
+// function myFunction() {
+//     style.display="none";
+// }
+// ***************************************************
+
+let T = setInterval(function () {
+    totalCount += cps;
     // console.log(totalCount);
-    if (totalCount >= 100) {
-        // reached 100 clicks
-        console.log("reached 100 clicks");
-        // TODO: start auto-count timer // timer changes every 1 second
-        setInterval(function () {
-            totalCount += cps;
-            console.log(cps);
-            totalEl.innerText = `Panic Count = ${totalCount}`;// TODO: fix this
-            // update the DOM to reflect the changes in the values
-            // save the values in local storage
-        }, 1000); // remains at 1 second, do not change
-        // clearInterval(T);
-    }
-}
+    totalEl.innerText = `Panic Count = ${totalCount}`;
+    cpsEl.textContent = `panics per second = ${cps}`;
 
-// panicBtn.addEventListener("click", initGame);
-// panicBtn.addEventListener("click", () => { // anonymous function calls function with params
-//      func(params);
-// });
+    // switch (cps) {
+    //     case 100: console.log("reached 100");// document.getElementById("upgrade1").style.display = "block"
+    //         break;
+    //     case 500: document.getElementById("upgrade2").style.display = "block"
+    //         break;
+    //     case 1000: document.getElementById("upgrade3").style.display = "block"
+    //         break;
+    //     case 2000: document.getElementById("upgrade4").style.display = "block"
+    //         break;
+    //     case 5000: document.getElementById("upgrade5").style.display = "block"
+    //         break;
+    //     case 10000: document.getElementById("upgrade6").style.display = "block"
+    //         break;
+    //     case 20000: document.getElementById("upgrade7").style.display = "block"
+    //         break;
+    //     case 50000: document.getElementById("upgrade8").style.display = "block"
+    //         break;
+    //     case 100000: document.getElementById("upgrade9").style.display = "block"
+    //         break;
+    //     case 200000: document.getElementById("upgrade10").style.display = "block";
+    // }
+
+
+
+}, 1000);
+
+// clearInterval(T);
