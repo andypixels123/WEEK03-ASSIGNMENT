@@ -14,12 +14,22 @@ body {
     color: #02bdce;
 }
 
-/* header {} */
+/* header {
+
+} */
+
+h1,
+h2,
+h3 {
+    padding: 1em;
+
+}
 
 #panicBtn {
     background-color: red;
     width: 100px;
     height: 100px;
+    margin: auto;
 }
 
 div {
@@ -30,6 +40,7 @@ div {
 }
 
 #shopContainer {
+    width: 100%;
     max-width: 300px;
     margin: auto;
 }
@@ -37,3 +48,28 @@ div {
 /* #shopContainer div {
 
 } */
+
+@media screen and (min-width:900px) {
+    body {
+        background-color: green;
+    }
+
+    main {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+    }
+
+    #clicker {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 1;
+        grid-column-end: 2;
+    }
+
+    #shopContainer {
+        grid-row-start: 1;
+        grid-row-end: 2;
+        grid-column-start: 2;
+        grid-column-end: 3;
+    }
+}

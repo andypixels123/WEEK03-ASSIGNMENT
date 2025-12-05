@@ -54,7 +54,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
     // console.log("JSON Data:", json);
-    cpsEl.textContent = `panics per second = ${cps}`;
+    cpsEl.textContent = `Panics per second = ${cps}`;
 
     for (i = 0; i < json.length; i++) {
         let rewardsElem = document.createElement("div");
@@ -96,7 +96,7 @@ let T = setInterval(function () {
     totalCount += cps;
     // console.log(totalCount);
     totalEl.innerText = `Panic Count = ${totalCount}`;
-    cpsEl.textContent = `panics per second = ${cps}`;
+    cpsEl.textContent = `Panics per second = ${cps}`;
 
     // switch (cps) {
     //     case 100: console.log("reached 100");// document.getElementById("upgrade1").style.display = "block"
@@ -119,8 +119,6 @@ let T = setInterval(function () {
     //         break;
     //     case 200000: document.getElementById("upgrade10").style.display = "block";
     // }
-
-
 
 }, 1000);
 
