@@ -48,6 +48,16 @@ const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
 let totalCount = 0;
 let cps = 0;
+let stats = {}; // stats obj
+let ls = localStorage.getItem("stats");
+console.log(ls);
+
+function storeValues(K, val) { // key / value
+    let V = JSON.stringify(val);
+    localStorage.setItem(K, V)
+    // retrieve data
+    // localStorage.getItem("stats");
+}
 
 // get API DATA here *******************************************************
 async function getData() { // CREATE ELEMENTS / HANDLERS
@@ -63,18 +73,23 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
         let rewardsName = json[i].name;
         rewardsElem.textContent = `${rewardsName}`;
         rewardsElem.id = `upgrade${json[i].id}`;
-        // console.log(rewardsElem);
         shopContainer.appendChild(rewardsElem);
-        // console.log(json[i].increase);
-        rewardsElem.addEventListener("click", () => {
+
+        rewardsElem.addEventListener("click", () => { // event handler
             totalCount = totalCount - cost;
             cps = cps + inc;
+            stats.totaL = totalCount;
+            stats.cPs = cps;
+            storeValues("stats", stats);
         });
     }
 
-    panicBtn.addEventListener("click", () => {
+    panicBtn.addEventListener("click", () => { // event handler
         totalCount++;
         totalEl.innerText = `Panic Count = ${totalCount}`;
+        stats.totaL = totalCount;
+        stats.cPs = cps;
+        storeValues("stats", stats);
     });
 }
 
@@ -94,7 +109,6 @@ getData();
 
 let T = setInterval(function () {
     totalCount += cps;
-    // console.log(totalCount);
     totalEl.innerText = `Panic Count = ${totalCount}`;
     cpsEl.textContent = `Panics per second = ${cps}`;
 
