@@ -52,7 +52,7 @@ const panicBtn = document.getElementById("panicBtn");
 const cpsEl = document.getElementById("cps");
 const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
-const rewardsElem = document.createElement("div");
+
 let totalCount = 0;
 let cps = 0;
 
@@ -61,69 +61,63 @@ async function getData() {
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
     let rewardsName;
-    // console.log("JSON Data:", json);
+    console.log("JSON Data:", json);
+    cpsEl.textContent = `panics per second = ${cps}`;
 
-    panicBtn.addEventListener("click", () => {
-        initGame(json[0].cost,null,null);
-    });
-
-    for(i = 0; i < json.length; i++) {
+    for (i = 0; i < json.length; i++) {
+        let rewardsElem = document.createElement("div");
         // console.log(i);
         // TODO: CREATE 'REWARDS' HTML FROM JSON DATA
-        // TODO: ADD EVENT LISTENERS
-        // use json data as params for initGame ?? pass via event listeners ??
-        // element.addEventListener("click", () => {
-            // initGame(json[0].cost,id,increase);
-        // });
+        // TODO: ADD EVENT LISTENERS  
+        rewardsName = json[i].name;
+        // console.log(rewardsName);
+        rewardsElem.textContent = `${rewardsName}`;
+        shopContainer.appendChild(rewardsElem);
+        rewardsElem.addEventListener("click", () => {
+            initGame(json[i].cost, json[i].id, json[i].increase);
+        });
 
-        // rewardsName = json[i].name;
-        // rewardsElem.textContent = json[i].increase;
-        // shopContainer.appendChild();
-        // shopContainer.innerHTML = ;
-
-// json sample for reference    
-// cost: 1000
-// id: 3
-// increase: 10 // ms?
-// name: "Cookie Farm"
-
-
+        // json sample for reference    
+        // cost: 1000
+        // id: 3
+        // increase: 10 // ms?
+        // name: "Cookie Farm"
     }
+
+    panicBtn.addEventListener("click", () => {
+        initGame(json[0].cost, null, null);
+    });
 }
 
 getData();
- 
+
+
+
 function initGame(cost, id, increase) { // increment total count / set timer
-    console.log(cost);
+    let T;
+    // console.log(cost);
     totalCount++;
     totalEl.innerText = `Panic Count = ${totalCount}`;
     // console.log(totalCount);
-    if(totalCount === cost) { // pass param here from rewards event handlers??
+    // if (totalCount >= cost) { // pass param here from rewards event handlers??
+    if (T || totalCount >= cost) { // pass param here from rewards event handlers??
         console.log("reached cost");
-    // TODO: start auto-count timer // update auto-count timer milliseconds
-    // TODO: might need to put timer in different function 
-        // let T = setInterval("", ms);
+        // TODO: start auto-count timer // update auto-count timer milliseconds
+        // TODO: might need to put timer in different function
+        // setInterval(function () {
+        // totalCount += cps; // totalCount = totalCount + cps
+        // update the DOM to reflect the changes in the values
+        // save the values in local storage
+        // }, 1000); // remains at 1 second, do not change
+        // }
         // clearInterval(T);
     }
 }
-
-
 
 // panicBtn.addEventListener("click", initGame);
 // panicBtn.addEventListener("click", () => { // anonymous function calls function with params
 //      func(params);
 // });
 
-
-//cps.innerText = `cookies per second (cps): ${cps}`;
-
 // increment count on each click
 // save count to local storage
-
-// setInterval(function () {
-// totalCookieCount += cps; // totalCookieCount = totalCookieCount + cps
-// update the DOM to reflect the changes in the values
-// save the values in local storage
-// }, 1000);
-
-// }
