@@ -4,18 +4,32 @@
     box-sizing: border-box;
 }
 
+/* ************************************ */
+/* ******** MOBILE FIRST CSS!! ******** */
+/* ************************************ */
+
 body {
+    text-align: center;
     background-color: azure;
-    color:#02bdce;
+    color: #02bdce;
 }
+
+/* header {} */
 
 #panicBtn {
     background-color: red;
     width: 100px;
     height: 100px;
 }
+
 div {
-    width: 100%;
-    height: 50px;
     background-color: lightblue;
+    padding: 1em 0;
+    cursor: pointer;
+    margin-bottom: 5px;
+}
+
+#shopContainer {
+    max-width: 300px;
+    margin: auto;
 }

@@ -24,20 +24,8 @@ console.log("is it working?");
 
 //============================================================================
 
-//shop upgrades
-
+//shop upgrades - API
 // https://cookie-upgrade-api.vercel.app/api/upgrades
-
-//fetch the upgrades from the API
-
-//create multiple DOM elements to contain the upgrades (loop)
-
-//TODO: create DOM elements for the shop upgrades
-//- create element
-//- assign the value to its property (textContent)
-//- append it to the DOM
-
-// after you complete this task, you should see the upgrades in your shop-container!
 
 //TODO: create function(s) to handle the purchase action
 //the user needs a button to buy the item
@@ -76,7 +64,6 @@ async function getData() {
         rewardsElem.addEventListener("click", () => {
             initGame(json[i].cost, json[i].id, json[i].increase);
         });
-
         // json sample for reference    
         // cost: 1000
         // id: 3
@@ -94,22 +81,22 @@ getData();
 
 
 function initGame(cost, id, increase) { // increment total count / set timer
-    let T;
+    // let T;
     // console.log(cost);
     totalCount++;
     totalEl.innerText = `Panic Count = ${totalCount}`;
     // console.log(totalCount);
-    // if (totalCount >= cost) { // pass param here from rewards event handlers??
-    if (T || totalCount >= cost) { // pass param here from rewards event handlers??
-        console.log("reached cost");
-        // TODO: start auto-count timer // update auto-count timer milliseconds
-        // TODO: might need to put timer in different function
-        // setInterval(function () {
-        // totalCount += cps; // totalCount = totalCount + cps
-        // update the DOM to reflect the changes in the values
-        // save the values in local storage
-        // }, 1000); // remains at 1 second, do not change
-        // }
+    if (totalCount >= 100) {
+        // reached 100 clicks
+        console.log("reached 100 clicks");
+        // TODO: start auto-count timer // timer changes every 1 second
+        setInterval(function () {
+            totalCount += cps;
+            console.log(cps);
+            totalEl.innerText = `Panic Count = ${totalCount}`;// TODO: fix this
+            // update the DOM to reflect the changes in the values
+            // save the values in local storage
+        }, 1000); // remains at 1 second, do not change
         // clearInterval(T);
     }
 }
@@ -118,6 +105,3 @@ function initGame(cost, id, increase) { // increment total count / set timer
 // panicBtn.addEventListener("click", () => { // anonymous function calls function with params
 //      func(params);
 // });
-
-// increment count on each click
-// save count to local storage
