@@ -12,17 +12,19 @@ body {
     text-align: center;
     background-color: azure;
     color: #02bdce;
+    font-family: comic sans ms;
 }
 
-/* header {
-
-} */
-
-h1,
-h2,
-h3 {
+header {
     padding: 1em;
+}
 
+h1 {
+    padding: 1em;
+}
+
+h1 {
+    font-size: 400%;
 }
 
 #panicBtn {
@@ -37,6 +39,7 @@ div {
     padding: 1em 0;
     cursor: pointer;
     margin-bottom: 5px;
+    opacity: 0.3;
 }
 
 #shopContainer {
@@ -46,10 +49,14 @@ div {
 }
 
 /* #shopContainer {
-
 } */
 
+button[disabled] {
+    cursor: not-allowed;
+}
+
 @media screen and (min-width:900px) {
+  /* create grid display for larger screens */
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;

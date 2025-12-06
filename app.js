@@ -48,9 +48,23 @@ const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
 let totalCount = 0;
 let cps = 0;
-let stats = {}; // stats obj
-let ls = localStorage.getItem("stats");
-console.log(ls);
+let stats = {}; // init stats obj
+// let ls = localStorage.getItem("stats");
+// console.log(ls);
+
+// levels of panic from Google AI
+const anxLevel = {
+    0: "Auto Calm",
+    1: "Mild Concern",
+    2: "On Edge",
+    3: "Anxious",
+    4: "Significant Stress",
+    5: "Intense Worry",
+    6: "Approaching Panic",
+    7: "Panic Attack",
+    8: "Severe Distress",
+    9: "Complete Meltdown"
+}
 
 function storeValues(K, val) { // key / value
     let V = JSON.stringify(val);
@@ -64,16 +78,22 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
     // console.log("JSON Data:", json);
-    cpsEl.textContent = `Panics per second = ${cps}`;
+    cpsEl.textContent = `${cps} pps`;
 
     for (i = 0; i < json.length; i++) {
-        let rewardsElem = document.createElement("div");
+        let rewardsElem = document.createElement("button");
+        let rewardsElemP = document.createElement("p");
         let inc = json[i].increase;
         let cost = json[i].cost;
-        let rewardsName = json[i].name;
-        rewardsElem.textContent = `${rewardsName}`;
+        // let rewardsName = json[i].name;
+        let aLevel = anxLevel[i];
         rewardsElem.id = `upgrade${json[i].id}`;
+
+        rewardsElem.disabled = "disabled";
+
         shopContainer.appendChild(rewardsElem);
+        rewardsElemP.innerHTML = `<h2>${aLevel}</h2><br>price - ${cost} panics<br>reward - ${inc} pps`;
+        rewardsElem.appendChild(rewardsElemP);
 
         rewardsElem.addEventListener("click", () => { // event handler
             totalCount = totalCount - cost;
@@ -86,7 +106,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
 
     panicBtn.addEventListener("click", () => { // event handler
         totalCount++;
-        totalEl.innerText = `Panic Count = ${totalCount}`;
+        totalEl.innerText = `Panics = ${totalCount}`;
         stats.totaL = totalCount;
         stats.cPs = cps;
         storeValues("stats", stats);
@@ -107,33 +127,73 @@ getData();
 // }
 // ***************************************************
 
+let flag = 0;
 let T = setInterval(function () {
+
     totalCount += cps;
-    totalEl.innerText = `Panic Count = ${totalCount}`;
-    cpsEl.textContent = `Panics per second = ${cps}`;
-
-    // switch (cps) {
-    //     case 100: console.log("reached 100");// document.getElementById("upgrade1").style.display = "block"
-    //         break;
-    //     case 500: document.getElementById("upgrade2").style.display = "block"
-    //         break;
-    //     case 1000: document.getElementById("upgrade3").style.display = "block"
-    //         break;
-    //     case 2000: document.getElementById("upgrade4").style.display = "block"
-    //         break;
-    //     case 5000: document.getElementById("upgrade5").style.display = "block"
-    //         break;
-    //     case 10000: document.getElementById("upgrade6").style.display = "block"
-    //         break;
-    //     case 20000: document.getElementById("upgrade7").style.display = "block"
-    //         break;
-    //     case 50000: document.getElementById("upgrade8").style.display = "block"
-    //         break;
-    //     case 100000: document.getElementById("upgrade9").style.display = "block"
-    //         break;
-    //     case 200000: document.getElementById("upgrade10").style.display = "block";
-    // }
-
-}, 1000);
+    totalEl.innerText = `Panics = ${totalCount}`;
+    cpsEl.textContent = `${cps} pps`;
+    switch (true) {
+        case totalCount > 100 && flag === 0:
+            const up1 = document.getElementById("upgrade1");
+            up1.style.opacity = 1;
+            up1.disabled = false;
+            flag = 100;
+            break;
+        case totalCount > 499 && flag === 100:
+            const up2 = document.getElementById("upgrade2");
+            up2.style.opacity = 1;
+            up2.disabled = false;
+            flag = 500;
+            break;
+        case totalCount > 999 && flag === 500:
+            const up3 = document.getElementById("upgrade3");
+            up3.style.opacity = 1;
+            up3.disabled = false;
+            flag = 1000;
+            break;
+        case totalCount > 1999 && flag === 1000:
+            const up4 = document.getElementById("upgrade4");
+            up4.style.opacity = 1;
+            up4.disabled = false;
+            flag = 2000;
+            break;
+        case totalCount > 4999 && flag === 2000:
+            const up5 = document.getElementById("upgrade5");
+            up5.style.opacity = 1;
+            up5.disabled = false;
+            flag = 5000;
+            break;
+        case totalCount > 9999 && flag === 5000:
+            const up6 = document.getElementById("upgrade6");
+            up6.style.opacity = 1;
+            up6.disabled = false;
+            flag = 10000;
+            break;
+        case totalCount > 19999 && flag === 10000:
+            const up7 = document.getElementById("upgrade7");
+            up7.style.opacity = 1;
+            up7.disabled = false;
+            flag = 20000;
+            break;
+        case totalCount > 49999 && flag === 20000:
+            const up8 = document.getElementById("upgrade8");
+            up8.style.opacity = 1;
+            up8.disabled = false;
+            flag = 50000;
+            break;
+        case totalCount > 99999 && flag === 50000:
+            const up9 = document.getElementById("upgrade9");
+            up9.style.opacity = 1;
+            up9.disabled = false;
+            flag = 100000;
+            break;
+        case totalCount > 199999 && flag === 100000:
+            const up10 = document.getElementById("upgrade10");
+            up10.style.opacity = 1;
+            up10.disabled = false;
+            // flag = 200000; // max
+    }
+}, 500);
 
 // clearInterval(T);
