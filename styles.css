@@ -4,6 +4,10 @@
     box-sizing: border-box;
 }
 
+img {
+    display: block;
+}
+
 /* ************************************ */
 /* ******** MOBILE FIRST CSS!! ******** */
 /* ************************************ */
@@ -11,7 +15,8 @@
 body {
     text-align: center;
     background-color: white;
-    color: #02bdce;
+    color: #78925e;
+    /* color: #02bdce; */
     font-family: comic sans ms;
 }
 
@@ -20,19 +25,23 @@ p {
 }
 
 h1 {
-    font-size: 400%;
-    padding: 1em;
+    font-family: Arial, Helvetica, sans-serif;
+    font-weight: bold;
+    font-size: 500%;
+    color: #555555;
+    letter-spacing: -4px;
+    padding: 1.5em 2% 2em 2%;
 }
 
 #clicker {
-    margin: 0 2% 4em 2%;
+    margin: 0 2% 5em 2%;
 }
 
 #panicBtn {
     width: 100%;
     max-width: 300px;
     height: auto;
-    margin: 0 auto 2em auto;
+    margin: 0 auto 3em auto;
     transition: transform .7s ease-in-out;
 }
 
@@ -40,8 +49,21 @@ h1 {
     transform: rotate(360deg);
 }
 
-#total, #cps {
+#clicker p:first-of-type {
+    font-size: 200%;
+}
+
+#total {
+    font-size: 300%;
+}
+
+#total,
+#cps {
     z-index: 100;
+}
+
+#cps {
+    font-size: 200%;
 }
 
 #shopContainer {
@@ -53,18 +75,23 @@ h1 {
     margin: auto;
 }
 
+#shopContainer>h2 {
+    font-size: 200%;
+}
+
+#shopContainer>p {
+    margin-bottom: 3em;
+}
+
 button {
     display: block;
     padding: 0.5em 0;
     cursor: pointer;
+    border: none;
 }
 
 button h2 {
     margin-bottom: 0.3em;
-}
-
-#shopContainer > p {
-    margin-bottom: 1em;
 }
 
 button[disabled] {
@@ -88,6 +115,10 @@ footer p {
     /* create grid display for larger screens */
     header {
         padding: 3em;
+    }
+
+    h1 {
+        padding: 2em 2% 2.5em 2%;
     }
 
     main {

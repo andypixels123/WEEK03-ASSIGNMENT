@@ -46,11 +46,25 @@ const panicBtn = document.getElementById("panicBtn");
 const cpsEl = document.getElementById("cps");
 const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
-let totalCount = 0;
-let cps = 0;
 let stats = {}; // init stats obj
-// let ls = localStorage.getItem("stats");
-// console.log(ls);
+let totalCount, cps;
+let str = localStorage.getItem("stats");
+console.log(str);
+
+if (str) {
+    try {
+        let obj = JSON.parse(str);
+        totalCount = obj.totaL;
+        console.log(totalCount);
+        cps = obj.cPs;
+        console.log(cps);
+    } catch (err) {
+        console.error(err);
+    }
+} else {
+    totalCount = 0;
+    cps = 0;
+}
 
 // levels of panic from Google AI
 const anxLevel = {
@@ -78,7 +92,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
     // console.log("JSON Data:", json);
-    cpsEl.innerHTML = `${cps} pps<br>( panics-per-second )`;
+    cpsEl.innerText = `${cps} pps`;
 
     for (i = 0; i < json.length; i++) {
         let rewardsElem = document.createElement("button");
@@ -104,7 +118,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
 
     panicBtn.addEventListener("click", () => { // event handler
         totalCount++;
-        totalEl.innerText = `Panics = ${totalCount}`;
+        totalEl.innerText = `${totalCount}`;
         stats.totaL = totalCount;
         stats.cPs = cps;
         storeValues("stats", stats);
@@ -129,65 +143,75 @@ let flag = 0;
 let T = setInterval(function () {
 
     totalCount += cps;
-    totalEl.innerText = `Panics = ${totalCount}`;
-    cpsEl.innerHTML = `${cps} pps<br>( panics-per-second )`;
+    totalEl.innerText = `${totalCount}`;
+    cpsEl.innerText = `${cps} pps`;
     switch (true) {
         case totalCount > 100 && flag === 0:
             const up1 = document.getElementById("upgrade1");
+            up1.style.backgroundColor = "#66ffcc";
             up1.style.opacity = 1;
             up1.disabled = false;
             flag = 100;
             break;
         case totalCount > 499 && flag === 100:
             const up2 = document.getElementById("upgrade2");
+            up2.style.backgroundColor = "#7df0b5";
             up2.style.opacity = 1;
             up2.disabled = false;
             flag = 500;
             break;
         case totalCount > 999 && flag === 500:
             const up3 = document.getElementById("upgrade3");
+            up3.style.backgroundColor = "#94e09e";
             up3.style.opacity = 1;
             up3.disabled = false;
             flag = 1000;
             break;
         case totalCount > 1999 && flag === 1000:
             const up4 = document.getElementById("upgrade4");
+            up4.style.backgroundColor = "#abd187";
             up4.style.opacity = 1;
             up4.disabled = false;
             flag = 2000;
             break;
         case totalCount > 4999 && flag === 2000:
             const up5 = document.getElementById("upgrade5");
+            up5.style.backgroundColor = "#c9bd69";
             up5.style.opacity = 1;
             up5.disabled = false;
             flag = 5000;
             break;
         case totalCount > 9999 && flag === 5000:
             const up6 = document.getElementById("upgrade6");
+            up6.style.backgroundColor = "#d9b259";
             up6.style.opacity = 1;
             up6.disabled = false;
             flag = 10000;
             break;
         case totalCount > 19999 && flag === 10000:
             const up7 = document.getElementById("upgrade7");
+            up7.style.backgroundColor = "#e8a84a";
             up7.style.opacity = 1;
             up7.disabled = false;
             flag = 20000;
             break;
         case totalCount > 49999 && flag === 20000:
             const up8 = document.getElementById("upgrade8");
+            up8.style.backgroundColor = "#f79e3b";
             up8.style.opacity = 1;
             up8.disabled = false;
             flag = 50000;
             break;
         case totalCount > 99999 && flag === 50000:
             const up9 = document.getElementById("upgrade9");
+            up9.style.backgroundColor = "#f05814";
             up9.style.opacity = 1;
             up9.disabled = false;
             flag = 100000;
             break;
         case totalCount > 199999 && flag === 100000:
             const up10 = document.getElementById("upgrade10");
+            up10.style.backgroundColor = "orangered";
             up10.style.opacity = 1;
             up10.disabled = false;
         // flag = 200000; // max
