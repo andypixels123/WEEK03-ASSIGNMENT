@@ -10,59 +10,95 @@
 
 body {
     text-align: center;
-    background-color: azure;
+    background-color: white;
     color: #02bdce;
     font-family: comic sans ms;
 }
 
-header {
-    padding: 1em;
-}
-
-h1 {
-    padding: 1em;
+p {
+    line-height: 165%;
 }
 
 h1 {
     font-size: 400%;
+    padding: 1em;
+}
+
+#clicker {
+    margin: 0 2% 4em 2%;
 }
 
 #panicBtn {
-    background-color: red;
-    width: 100px;
-    height: 100px;
-    margin: auto;
+    width: 100%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto 2em auto;
+    transition: transform .7s ease-in-out;
 }
 
-div {
-    background-color: lightblue;
-    padding: 1em 0;
-    cursor: pointer;
-    margin-bottom: 5px;
-    opacity: 0.3;
+#panicBtn:hover {
+    transform: rotate(360deg);
+}
+
+#total, #cps {
+    z-index: 100;
 }
 
 #shopContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
     width: 100%;
     max-width: 300px;
     margin: auto;
 }
 
-/* #shopContainer {
-} */
+button {
+    display: block;
+    padding: 0.5em 0;
+    cursor: pointer;
+}
+
+button h2 {
+    margin-bottom: 0.3em;
+}
+
+#shopContainer > p {
+    margin-bottom: 1em;
+}
 
 button[disabled] {
     cursor: not-allowed;
 }
 
+footer {
+    font-family: verdana;
+    letter-spacing: 2px;
+    padding: 12em 2% 5em 2%;
+}
+
+footer p {
+    margin-top: 2em;
+}
+
+
+
 @media screen and (min-width:900px) {
-  /* create grid display for larger screens */
+
+    /* create grid display for larger screens */
+    header {
+        padding: 3em;
+    }
+
     main {
         display: grid;
         grid-template-columns: 1fr 1fr;
     }
 
     #clicker {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
         grid-row-start: 1;
         grid-row-end: 2;
         grid-column-start: 1;

@@ -54,7 +54,7 @@ let stats = {}; // init stats obj
 
 // levels of panic from Google AI
 const anxLevel = {
-    0: "Auto Calm",
+    0: "Auto - Calm",
     1: "Mild Concern",
     2: "On Edge",
     3: "Anxious",
@@ -78,7 +78,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
     // console.log("JSON Data:", json);
-    cpsEl.textContent = `${cps} pps`;
+    cpsEl.innerHTML = `${cps} pps<br>( panics-per-second )`;
 
     for (i = 0; i < json.length; i++) {
         let rewardsElem = document.createElement("button");
@@ -88,11 +88,9 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
         // let rewardsName = json[i].name;
         let aLevel = anxLevel[i];
         rewardsElem.id = `upgrade${json[i].id}`;
-
         rewardsElem.disabled = "disabled";
-
         shopContainer.appendChild(rewardsElem);
-        rewardsElemP.innerHTML = `<h2>${aLevel}</h2><br>price - ${cost} panics<br>reward - ${inc} pps`;
+        rewardsElemP.innerHTML = `<h2>${aLevel}</h2>Price - ${cost} Panics<br>Reward - ${inc} pps`;
         rewardsElem.appendChild(rewardsElemP);
 
         rewardsElem.addEventListener("click", () => { // event handler
@@ -132,7 +130,7 @@ let T = setInterval(function () {
 
     totalCount += cps;
     totalEl.innerText = `Panics = ${totalCount}`;
-    cpsEl.textContent = `${cps} pps`;
+    cpsEl.innerHTML = `${cps} pps<br>( panics-per-second )`;
     switch (true) {
         case totalCount > 100 && flag === 0:
             const up1 = document.getElementById("upgrade1");
@@ -192,8 +190,8 @@ let T = setInterval(function () {
             const up10 = document.getElementById("upgrade10");
             up10.style.opacity = 1;
             up10.disabled = false;
-            // flag = 200000; // max
+        // flag = 200000; // max
     }
-}, 500);
+}, 1000);
 
 // clearInterval(T);
