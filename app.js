@@ -46,6 +46,7 @@ const panicBtn = document.getElementById("panicBtn");
 const cpsEl = document.getElementById("cps");
 const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
+const save = document.getElementById("save");
 let stats = {}; // init stats obj
 let totalCount, cps;
 let str = localStorage.getItem("stats");
@@ -218,4 +219,10 @@ let T = setInterval(function () {
     }
 }, 1000);
 
-// clearInterval(T);
+save.addEventListener("click", () => { // save to local storage / stop counting
+    clearInterval(T);
+    stats.totaL = totalCount;
+    stats.cPs = cps;
+    storeValues("stats", stats);
+}
+);
