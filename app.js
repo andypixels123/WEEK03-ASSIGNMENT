@@ -1,4 +1,4 @@
-console.log("is it working?");
+// console.log("is it working?");
 
 //game logic
 //when the user clicks on the cookie, the total count of cookies goes up by 1
@@ -11,7 +11,7 @@ console.log("is it working?");
 //- OPTION 2: you could have a reusable function that works for ALL upgrades
 
 //Tip on local storage:
-//- make sure the local storage values are updated after the user buys an upgrade AND when the user clicks on the cookie
+//make sure the local storage values are updated after the user buys an upgrade AND when the user clicks on the cookie
 
 //===========================================================================
 
@@ -49,16 +49,14 @@ const shopContainer = document.getElementById("shopContainer");
 const save = document.getElementById("save");
 let stats = {}; // init stats obj
 let totalCount, cps;
-let str = localStorage.getItem("stats");
-console.log(str);
+const str = localStorage.getItem("stats") ? localStorage.getItem("stats") : null;
+// console.log(str); // check local storage
 
 if (str) {
     try {
-        let obj = JSON.parse(str);
+        const obj = JSON.parse(str);
         totalCount = obj.totaL;
-        console.log(totalCount);
         cps = obj.cPs;
-        console.log(cps);
     } catch (err) {
         console.error(err);
     }
@@ -67,7 +65,7 @@ if (str) {
     cps = 0;
 }
 
-// levels of panic from Google AI
+// 'levels of panic' text created by Google AI
 const anxLevel = {
     0: "Auto - Calm",
     1: "Mild Concern",
@@ -81,18 +79,17 @@ const anxLevel = {
     9: "Complete Meltdown"
 }
 
-function storeValues(K, val) { // key / value
+function storeValues(K, val) { // save to local storage // key / value pairs
     let V = JSON.stringify(val);
-    localStorage.setItem(K, V)
-    // retrieve data
-    // localStorage.getItem("stats");
+    localStorage.setItem(K, V);
 }
 
-// get API DATA here *******************************************************
+// Get API DATA here
+// Application Programming Interface
 async function getData() { // CREATE ELEMENTS / HANDLERS
     const response = await fetch("https://cookie-upgrade-api.vercel.app/api/upgrades");
     const json = await response.json();
-    // console.log("JSON Data:", json);
+    // console.log("JSON Data:", json); // check data
     cpsEl.innerText = `${cps} pps`;
 
     for (i = 0; i < json.length; i++) {
@@ -100,10 +97,10 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
         let rewardsElemP = document.createElement("p");
         let inc = json[i].increase;
         let cost = json[i].cost;
-        // let rewardsName = json[i].name;
+        // let rewardsName = json[i].name; // not used
         let aLevel = anxLevel[i];
         rewardsElem.id = `upgrade${json[i].id}`;
-        rewardsElem.disabled = "disabled";
+        rewardsElem.disabled = true;
         shopContainer.appendChild(rewardsElem);
         rewardsElemP.innerHTML = `<h2>${aLevel}</h2>Price - ${cost} Panics<br>Reward - ${inc} pps`;
         rewardsElem.appendChild(rewardsElemP);
@@ -126,28 +123,16 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
     });
 }
 
-getData();
+getData(); // get api data, create html
 
-
-// ***************************************************
-// TODO: hide upgrade buttons until earned
-// const rewards = document.querySelectorAll("#upgrade1,#upgrade2,#upgrade3,#upgrade4,#upgrade5,#upgrade6,#upgrade7,#upgrade8,#upgrade9,#upgrade10");
-// console.log(rewards);
-
-// rewards.forEach(myFunction);
-// function myFunction() {
-//     style.display="none";
-// }
-// ***************************************************
 
 let flag = 0;
-let T = setInterval(function () {
-
+let T = setInterval(function () { // start auto count
     totalCount += cps;
     totalEl.innerText = `${totalCount}`;
     cpsEl.innerText = `${cps} pps`;
     switch (true) {
-        case totalCount > 100 && flag === 0:
+        case totalCount > 99 && flag === 0:
             const up1 = document.getElementById("upgrade1");
             up1.style.backgroundColor = "#66ffcc";
             up1.style.opacity = 1;
@@ -215,11 +200,11 @@ let T = setInterval(function () {
             up10.style.backgroundColor = "orangered";
             up10.style.opacity = 1;
             up10.disabled = false;
-        // flag = 200000; // max
+        // flag = 200000; // max // not required
     }
 }, 1000);
 
-save.addEventListener("click", () => { // save to local storage / stop counting
+save.addEventListener("click", () => { // stop auto count // save 'stats' to local storage
     clearInterval(T);
     stats.totaL = totalCount;
     stats.cPs = cps;
