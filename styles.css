@@ -2,6 +2,7 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    line-height: 1;
 }
 
 img,
@@ -39,7 +40,8 @@ h1 {
 
 #panicBtn,
 #shopContainer,
-#save {
+#save,
+#play {
     width: 100%;
     max-width: 300px;
 }
@@ -59,17 +61,21 @@ h1 {
     font-size: 200%;
 }
 
+#clicker p:last-of-type {
+    margin-bottom: 4em;
+}
+
 #total {
     font-size: 300%;
 }
 
 #total,
 #cps {
-    z-index: 100;
+    z-index: 10;
 }
 
-#save {
-    margin: 3em auto 0 auto;
+#save, #play {
+    margin: 0 auto 12px auto;
     padding: 1em;
 }
 
@@ -90,8 +96,11 @@ h1 {
 
 button {
     padding: 0.5em 0;
-    cursor: pointer;
     border: none;
+}
+
+button, #panicBtn, #close {
+    cursor: pointer;
 }
 
 button h2 {
@@ -110,6 +119,48 @@ footer {
 
 footer p {
     margin-top: 2em;
+}
+
+@keyframes fadeIn {
+  from {opacity: 0;}
+  to {opacity: 1;}
+}
+
+#popup {
+  animation-name: fadeIn;
+  animation-duration: 1s;
+} 
+
+#popup {
+    cursor: default;
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2em;
+    background-color: rgb(250, 247, 223);
+    position: fixed;
+    top: 10%;
+    right: 10%;
+    left: 10%;
+    bottom: 10%;
+    border-radius: 20px;
+    z-index: 20;
+}
+
+.scrollBox {
+    margin: 2em 0;
+    padding: 1.5em;
+    overflow: scroll;
+}
+
+.scrollBox p:first-of-type {
+    margin-bottom: 2em;
+}
+
+#close {
+    font-size: 40px;
+    color:#333333;
 }
 
 @media screen and (min-width:900px) {

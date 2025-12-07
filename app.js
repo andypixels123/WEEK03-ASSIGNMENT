@@ -46,13 +46,14 @@ const panicBtn = document.getElementById("panicBtn");
 const cpsEl = document.getElementById("cps");
 const totalEl = document.getElementById("total");
 const shopContainer = document.getElementById("shopContainer");
+const play = document.getElementById("play");
 const save = document.getElementById("save");
 let stats = {}; // init stats obj
 let totalCount, cps;
 const str = localStorage.getItem("stats") ? localStorage.getItem("stats") : null;
 // console.log(str); // check local storage
 
-if (str) {
+if (str) { // not null
     try {
         const obj = JSON.parse(str);
         totalCount = obj.totaL;
@@ -101,6 +102,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
         let aLevel = anxLevel[i];
         rewardsElem.id = `upgrade${json[i].id}`;
         rewardsElem.disabled = true;
+        rewardsElem.title = `buy ${inc} pps for ${cost} clicks`;
         shopContainer.appendChild(rewardsElem);
         rewardsElemP.innerHTML = `<h2>${aLevel}</h2>Price - ${cost} Panics<br>Reward - ${inc} pps`;
         rewardsElem.appendChild(rewardsElemP);
@@ -131,6 +133,10 @@ let T = setInterval(function () { // start auto count
     totalCount += cps;
     totalEl.innerText = `${totalCount}`;
     cpsEl.innerText = `${cps} pps`;
+    stats.totaL = totalCount;
+    stats.cPs = cps;
+    storeValues("stats", stats);
+
     switch (true) {
         case totalCount > 99 && flag === 0:
             const up1 = document.getElementById("upgrade1");
@@ -206,8 +212,21 @@ let T = setInterval(function () { // start auto count
 
 save.addEventListener("click", () => { // stop auto count // save 'stats' to local storage
     clearInterval(T);
-    stats.totaL = totalCount;
-    stats.cPs = cps;
-    storeValues("stats", stats);
+    // not req'd, stats are saved every second 
+    // stats.totaL = totalCount;
+    // stats.cPs = cps;
+    // storeValues("stats", stats);
 }
 );
+
+play.addEventListener("click", () => {
+    let info = document.createElement("section");
+    let closeBtn = document.createElement("div");
+    info.id = "popup";
+    info.innerHTML = "<h2>Game Play</h2><div class='scrollBox'><p>The object of this game is to accumulate clicks (aka panics). This kind of game is known as a 'clicker' or 'incremental' game and it uses Javascript logic to calculate values. Initially, click the panic button to start the game. When 100 clicks have accumulated, the shop will be opened for business. Further stock will be added when enough 'panics' have accumulated to pay for each item in the shop. When you purchase items from the shop, you are buying a higher rate of clicks (panics) per second. The cost of each purchase is deducted from the 'Total Stress' (panics) when making a purchase. Click an item in the shop to make your first purchase and the game will enter auto mode. Your stats will be saved every second so you can stop the game and pickup where you started next time you visit. The game continues infinitely until stopped by the user via the save / stop button or by closing the page.</p><p>Happy Stressing!</p></div>";
+    closeBtn.id = "close";
+    closeBtn.textContent = "✕";
+    document.body.appendChild(info);
+    info.appendChild(closeBtn);
+    closeBtn.addEventListener("click", () => {info.remove();});
+});
