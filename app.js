@@ -102,7 +102,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
         let aLevel = anxLevel[i];
         rewardsElem.id = `upgrade${json[i].id}`;
         rewardsElem.disabled = true;
-        rewardsElem.title = `buy ${inc} pps for ${cost} clicks`;
+        rewardsElem.title = `buy ${inc} pps for ${cost} panics`;
         shopContainer.appendChild(rewardsElem);
         rewardsElemP.innerHTML = `<h2>${aLevel}</h2>Price - ${cost} Panics<br>Reward - ${inc} pps`;
         rewardsElem.appendChild(rewardsElemP);
@@ -223,8 +223,9 @@ play.addEventListener("click", () => {
     let info = document.createElement("section");
     let closeBtn = document.createElement("div");
     info.id = "popup";
-    info.innerHTML = "<h2>Game Play</h2><div class='scrollBox'><p>The object of this game is to accumulate clicks (aka panics). This kind of game is known as a 'clicker' or 'incremental' game and it uses Javascript logic to calculate values. Initially, click the panic button to start the game. When 100 clicks have accumulated, the shop will be opened for business. Further stock will be added when enough 'panics' have accumulated to pay for each item in the shop. When you purchase items from the shop, you are buying a higher rate of clicks (panics) per second. The cost of each purchase is deducted from the 'Total Stress' (panics) when making a purchase. Click an item in the shop to make your first purchase and the game will enter auto mode. Your stats will be saved every second so you can stop the game and pickup where you started next time you visit. The game continues infinitely until stopped by the user via the save / stop button or by closing the page.</p><p>Happy Stressing!</p></div>";
+    info.innerHTML = "<h2>Game Play</h2><div class='scrollBox'><p>The object of this game is to accumulate clicks (aka panics). This kind of game is known as a 'clicker' or 'incremental' game and it uses Javascript logic to calculate values. Initially, click the panic button to start the game. When 100 clicks have accumulated, the shop will be opened for business. Further stock will be added when enough 'panics' have accumulated to pay for each item in the shop. When you purchase items from the shop, you are buying a higher rate of clicks (panics) per second. The cost of each purchase is deducted from the 'Total Stress' (total panics count) when making a purchase. Click an item in the shop to make your first purchase and the game will enter auto mode. Your stats will be saved every second so you can stop the game and pickup where you started next time you visit. The game continues infinitely until stopped by the user via the save / stop button or by closing the page.</p><p>Happy Stressing!</p></div>";
     closeBtn.id = "close";
+    closeBtn.title = "click to close";
     closeBtn.textContent = "✕";
     document.body.appendChild(info);
     info.appendChild(closeBtn);
