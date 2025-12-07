@@ -95,7 +95,7 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
 
     for (i = 0; i < json.length; i++) {
         let rewardsElem = document.createElement("button");
-        let rewardsElemP = document.createElement("p");
+        // let rewardsElemP = document.createElement("p");
         let inc = json[i].increase;
         let cost = json[i].cost;
         // let rewardsName = json[i].name; // not used
@@ -103,9 +103,8 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
         rewardsElem.id = `upgrade${json[i].id}`;
         rewardsElem.disabled = true;
         rewardsElem.title = `buy ${inc} pps for ${cost} panics`;
+        rewardsElem.innerHTML = `<span>${aLevel}</span><br>Price - ${cost} Panics<br>Reward - ${inc} pps`;
         shopContainer.appendChild(rewardsElem);
-        rewardsElemP.innerHTML = `<h2>${aLevel}</h2>Price - ${cost} Panics<br>Reward - ${inc} pps`;
-        rewardsElem.appendChild(rewardsElemP);
 
         rewardsElem.addEventListener("click", () => { // event handler
             totalCount = totalCount - cost;
@@ -118,7 +117,9 @@ async function getData() { // CREATE ELEMENTS / HANDLERS
 
     panicBtn.addEventListener("click", () => { // event handler
         totalCount++;
-        totalEl.innerText = `${totalCount}`;
+        // totalEl.innerText = `${totalCount}`;
+        let ttl = totalCount.toLocaleString();
+        totalEl.innerText = ttl;
         stats.totaL = totalCount;
         stats.cPs = cps;
         storeValues("stats", stats);
@@ -131,7 +132,9 @@ getData(); // get api data, create html
 let flag = 0;
 let T = setInterval(function () { // start auto count
     totalCount += cps;
-    totalEl.innerText = `${totalCount}`;
+    // totalEl.innerText = `${totalCount}`;
+    let ttl = totalCount.toLocaleString();
+    totalEl.innerText = ttl;
     cpsEl.innerText = `${cps} pps`;
     stats.totaL = totalCount;
     stats.cPs = cps;
